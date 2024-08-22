@@ -1,65 +1,40 @@
-# turboconsolecs README
+# TurboConsoleCS
 
-This is the README for your extension "turboconsolecs". After writing up a brief description, we recommend including the following sections.
+TurboConsoleCS is a Visual Studio Code extension that helps you quickly insert a `Console.WriteLine` statement below the selected code. This is useful for debugging and logging variables and code snippets during development.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Insert `Console.WriteLine` Statement**: Quickly add a `Console.WriteLine` statement below the selected code.
+- **Customizable Keybinding**: Easily change the keybinding to suit your preferences.
+- **Handles Various Scenarios**: Correctly handles insertion even when the selected text is at the end of the document or inside code blocks.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+1. Open Visual Studio Code.
+2. Go to the Extensions view by pressing `Ctrl+Shift+X`.
+3. Search for `TurboConsoleCS`.
+4. Click `Install` to add the extension to your VSCode environment.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Usage
 
-## Requirements
+1. **Select** the code or text you want to log.
+2. **Press** the configured keybinding (`Ctrl+Alt+M` by default) to insert the `Console.WriteLine` statement below the selected code.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### Keybinding
 
-## Extension Settings
+The default keybinding for the `TurboConsoleCS: Log Selected Code` command is `Ctrl+Alt+M`. You can customize this keybinding to fit your preferences:
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+1. Open Keyboard Shortcuts by pressing `Ctrl+K Ctrl+S`.
+2. Search for `TurboConsoleCS: Log Selected Code`.
+3. Click the pencil icon next to the command and enter your desired keybinding.
 
-For example:
+Alternatively, edit the `keybindings.json` file directly:
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+```json
+[
+    {
+        "key": "ctrl+alt+m",
+        "command": "turboconsolecs.logSelectedCode",
+        "when": "editorTextFocus"
+    }
+]

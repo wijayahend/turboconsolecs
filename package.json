@@ -2,7 +2,13 @@
 	"name": "turboconsolecs",
 	"displayName": "turboconsolecs",
 	"description": "simply console writeline",
-	"version": "0.0.1",
+	"version": "0.0.3",
+	"publisher": "HendraUswandy",
+	"icon": "rocket.png",
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/wijayahend/turboconsolecs"
+    },
 	"engines": {
 		"vscode": "^1.92.0"
 	},
@@ -24,7 +30,17 @@
 				"key": "ctrl+alt+m",
 				"when": "editorTextFocus"
 			}
-		]
+		],
+		"configuration": {
+			"type": "object",
+			"properties": {
+				"turboconsolecs.includeLineNumber": {
+					"type": "boolean",
+					"default": false,
+					"description": "Include filename and line number in Console.WriteLine output."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"lint": "eslint .",

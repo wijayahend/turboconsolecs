@@ -1,5 +1,11 @@
 const vscode = require('vscode');
 
+function generateUniqueId() {
+    const capitalLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // A-Z
+    const randomNumber = Math.floor(Math.random() * 10000);
+    return `${capitalLetter}-${randomNumber}`;
+}
+
 function activate(context) {
 	console.log('Congratulations, your extension "turboconsolecs" is now active!');
 
@@ -7,40 +13,46 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const selection = editor.selection;
-			let selectedText = editor.document.getText(selection);
+			let selectedText = editor.document.getText(selection).trim();
 
-			// Extract the last word or variable name after the last space
-			const variableName = selectedText.split(' ').pop().replace(/[^a-zA-Z0-9_$]/g, "");
+			// Escape any double quotes in the selected text
+			selectedText = selectedText.replace(/"/g, '\\"');
+
+			const includeLineNumber = vscode.workspace.getConfiguration('turboconsolecs').get('includeLineNumber', false);
+			const position = selection.end;
+			const document = editor.document;
+			const randomNumber = Math.floor(Math.random() * 1000);
 
 			editor.edit(editBuilder => {
-				const position = selection.end;
-				const document = editor.document;
+				const nextLineNumber = position.line + 1;
 
-				// Handle the case where the selection is at the last line of the document
-				let nextLineNumber = position.line + 1;
+				let logStatement = `Console.WriteLine($\"🚀 ~ (${generateUniqueId()}) \{${selectedText}}\");\n`;
+
+				if (includeLineNumber) {
+					const fileName = document.fileName.split('/').pop(); // Extract filename from path
+					const lineNumber = position.line + 1; // Line number is 1-based
+					logStatement = `Console.WriteLine($\"🚀 (${generateUniqueId()}) (${fileName}:${lineNumber}) ~ \{${selectedText}}\");\n`;
+				}
+
 				if (nextLineNumber >= document.lineCount) {
-					// If we're at the end of the document, insert the console.log at the end of the last line
-					const lastLine = document.lineAt(document.lineCount - 1);
 					editBuilder.insert(
 						new vscode.Position(document.lineCount, 0),
-						`\nconsole.log("🚀 ~ ${variableName}:", ${variableName});`
+						`\n${logStatement}`
 					);
 				} else {
 					const nextLine = document.lineAt(nextLineNumber);
 					const nextLineText = nextLine.text.trim();
 
 					if (nextLineText === '{') {
-						// Insert the console.log statement inside the block, properly indented
 						const indent = nextLine.firstNonWhitespaceCharacterIndex + 4; // Increase indent by 4 spaces
 						editBuilder.insert(
 							new vscode.Position(nextLineNumber + 1, 0),
-							`${' '.repeat(indent)}console.log("🚀 ~ ${variableName}:", ${variableName});\n`
+							`${' '.repeat(indent)}${logStatement}\n`
 						);
 					} else {
-						// Insert it below the selected text if there's no brace
 						editBuilder.insert(
 							new vscode.Position(nextLineNumber, 0),
-							`console.log("🚀 ~ ${variableName}:", ${variableName});\n`
+							`\n${logStatement}`
 						);
 					}
 				}
