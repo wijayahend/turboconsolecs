@@ -7,6 +7,8 @@ TurboConsoleCS is a Visual Studio Code extension that helps you quickly insert a
 - **Insert `Console.WriteLine` Statement**: Quickly add a `Console.WriteLine` statement below the selected code.
 - **Customizable Keybinding**: Easily change the keybinding to suit your preferences.
 - **Handles Various Scenarios**: Correctly handles insertion even when the selected text is at the end of the document or inside code blocks.
+- **Unique Random ID**: Includes a unique random ID in the `Console.WriteLine` statement for tracking purposes.
+- **Optional Line Number and Filename**: Includes the filename and line number in the `Console.WriteLine` statement based on user preference.
 
 ## Installation
 
@@ -30,7 +32,6 @@ The default keybinding for the `TurboConsoleCS: Log Selected Code` command is `C
 
 Alternatively, edit the `keybindings.json` file directly:
 
-```json
 [
     {
         "key": "ctrl+alt+m",
@@ -38,3 +39,22 @@ Alternatively, edit the `keybindings.json` file directly:
         "when": "editorTextFocus"
     }
 ]
+
+### Configuration
+
+You can configure the extension to include the filename and line number in the Console.WriteLine statement. To do this:
+
+    Open Settings by pressing Ctrl+, or navigating to File > Preferences > Settings.
+    Search for TurboConsoleCS.
+    Find the setting TurboConsoleCS: Include Line Number and check the box to enable it.
+
+When enabled, the Console.WriteLine statement will include the filename and line number in the format:
+Console.WriteLine($"🚀 (filename.ext:lineNumber) ~ {selectedText}");
+
+If disabled, the statement will use the format:
+
+Console.WriteLine($"🚀 {uniqueId} ~ {selectedText}");
+
+### Contact
+
+For any questions, suggestions, or .NET development opportunities, feel free to reach out to me at hendrauswandy@gmail.com.

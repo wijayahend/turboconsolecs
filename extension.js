@@ -3,7 +3,7 @@ const vscode = require('vscode');
 function generateUniqueId() {
     const capitalLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // A-Z
     const randomNumber = Math.floor(Math.random() * 10000);
-    return `${capitalLetter}-${randomNumber}`;
+    return `${capitalLetter}_${randomNumber}`;
 }
 
 function activate(context) {

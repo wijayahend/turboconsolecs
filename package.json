@@ -1,8 +1,8 @@
 {
 	"name": "turboconsolecs",
 	"displayName": "turboconsolecs",
-	"description": "simply console writeline",
-	"version": "0.0.3",
+	"description": "simple console writeline",
+	"version": "0.0.5",
 	"publisher": "HendraUswandy",
 	"icon": "rocket.png",
 	"repository": {
